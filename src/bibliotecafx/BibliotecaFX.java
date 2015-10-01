@@ -7,9 +7,13 @@ package bibliotecafx;
 
 import bibliotecafx.controllers.AutorController;
 import bibliotecafx.controllers.BibliotecaViewController;
+import bibliotecafx.controllers.DialogEditarAutorController;
+import bibliotecafx.controllers.DialogEditarEjemplarController;
+import bibliotecafx.controllers.DialogEditarLibroController;
 import bibliotecafx.controllers.EjemplarController;
 import bibliotecafx.controllers.LibroController;
 import bibliotecafx.controllers.UsuarioController;
+import bibliotecafx.helpers.Dialogs;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -22,7 +26,9 @@ import bibliotecafx.models.Autor;
 import bibliotecafx.models.Ejemplar;
 import bibliotecafx.models.Libro;
 import bibliotecafx.models.Usuario;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 /**
  *
  * @author Edson
@@ -36,7 +42,7 @@ public class BibliotecaFX extends Application {
     private ObservableList<Ejemplar> ejemplaresList = FXCollections.observableArrayList();
     private ObservableList<Libro> librosList = FXCollections.observableArrayList();
     private ObservableList<Usuario> usuariosList = FXCollections.observableArrayList();
-    
+    public enum CRUDOperation {None, Create, Read, Update, Delete};
     
     @Override
     public void start(Stage primaryStage) {
@@ -128,15 +134,99 @@ public void mostrarUsuarios(){
     public ObservableList<Autor> getAutoresList() {
         return autoresList;
     }
-
+    public boolean mostrarEditarAutor(Autor autor, CRUDOperation operacion){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BibliotecaFX.class.getResource("views/DialogEditarAutor.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Autor");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene escena = new Scene(page);
+            dialogStage.setScene(escena);
+            dialogStage.setResizable(false);
+            DialogEditarAutorController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOperacion(operacion);
+            controller.setAutor(autor);
+            
+            dialogStage.showAndWait();
+            
+            return controller.fuePresionadoOk();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "CET Kinal", null, "Error al cargar el archivo FXML", e);
+            error.showAndWait();
+            return false;
+        }
+    }
     public ObservableList<Ejemplar> getEjemplaresList() {
         return ejemplaresList;
     }
-
+    public boolean mostrarEditarEjemplar(Ejemplar ejemplar, CRUDOperation operacion){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BibliotecaFX.class.getResource("views/DialogEditarEjemplar.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Ejemplar");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene escena = new Scene(page);
+            dialogStage.setScene(escena);
+            dialogStage.setResizable(false);
+            DialogEditarEjemplarController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOperacion(operacion);
+            controller.setEjemplar(ejemplar);
+            
+            dialogStage.showAndWait();
+            
+            return controller.fuePresionadoOk();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "CET Kinal", null, "Error al cargar el archivo FXML", e);
+            error.showAndWait();
+            return false;
+        }
+    }
     public ObservableList<Libro> getLibrosList() {
         return librosList;
     }
-
+     public boolean mostrarEditarLibro(Libro libro, CRUDOperation operacion){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BibliotecaFX.class.getResource("views/DialogEditarLibros.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Libro");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene escena = new Scene(page);
+            dialogStage.setScene(escena);
+            dialogStage.setResizable(false);
+            DialogEditarLibroController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOperacion(operacion);
+            controller.setLibro(libro);
+            
+            dialogStage.showAndWait();
+            
+            return controller.fuePresionadoOk();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "CET Kinal", null, "Error al cargar el archivo FXML", e);
+            error.showAndWait();
+            return false;
+        }
+    }
     public ObservableList<Usuario> getUsuariosList() {
         return usuariosList;
     }

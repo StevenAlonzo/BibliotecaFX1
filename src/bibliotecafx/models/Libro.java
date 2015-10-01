@@ -102,7 +102,7 @@ public class Libro {
         
         return libros;
     }
-    public static boolean insertarLibro(Libro nuevoLibro){
+    public static boolean agregarLibro(Libro nuevoLibro){
         
         String insertSQL =  "INSERT INTO Libros (Titulo,ISBN,Editorial,Paginas) "
                 + "VALUES (?, ?, ?,?)";

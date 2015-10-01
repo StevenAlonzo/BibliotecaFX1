@@ -21,6 +21,9 @@ public class DBHelper {
     private static DBHelper instance;
     
     private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static final String DB_SERVER = "localhost:1433";
+    private static final String DB_INSTANCE = "USUARIO-PC\\SQLEXPRESS";
+    private static final String DB_NAME = "BibliotecaInFX";
     
     public static void setBibliotecafx(BibliotecaFX bibliotecafx) {
         DBHelper.bibliotecafx = bibliotecafx;
@@ -28,16 +31,12 @@ public class DBHelper {
     
 
     public DBHelper() throws ClassNotFoundException, SQLException{
-            try {
-                Class.forName(DRIVER);
-      String connectionUrl = "jdbc:sqlserver://localhost;databaseName=Biblioteca;integratedSecurity=true";
-      connection = DriverManager.getConnection(connectionUrl);
-      System.out.println("Conectado.");
-    } 
-    catch (SQLException ex) 
-    {
-      System.out.println("Error.");
-    }
+         
+     Class.forName(DRIVER);
+     connection = DriverManager.getConnection("jdbc:sqlserver://"+ DB_SERVER + ":instanceName"+DB_INSTANCE+":"+"databaseName"+DB_NAME+"user=sa"+ ";"+"password=Kinal2015");
+    
+    
+      
     }
     
     

@@ -18,12 +18,12 @@
             <TableColumn fx:id="tbcUsuario" prefWidth="156.0" text="Nombre Usuario" />
         </columns>
       </TableView>
-      <Button blendMode="EXCLUSION" layoutX="479.0" layoutY="29.0" mnemonicParsing="false" text="Agregar" textFill="#b94c4c">
+      <Button blendMode="EXCLUSION" layoutX="479.0" layoutY="29.0" mnemonicParsing="false" onAction="#AgregarEjemplar" text="Agregar" textFill="#b94c4c">
          <font>
             <Font name="System Italic" size="19.0" />
          </font>
       </Button>
-      <Button blendMode="EXCLUSION" layoutX="479.0" layoutY="88.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" text="Editar" textFill="WHITE" />
-      <Button blendMode="EXCLUSION" layoutX="480.0" layoutY="135.0" mnemonicParsing="false" text="Eliminar" />
+      <Button blendMode="EXCLUSION" layoutX="479.0" layoutY="88.0" mnemonicParsing="false" onAction="#EditarEjemplar" prefHeight="33.0" prefWidth="101.0" text="Editar" textFill="WHITE" />
+      <Button blendMode="EXCLUSION" layoutX="480.0" layoutY="135.0" mnemonicParsing="false" onAction="#EliminarEjemplar" text="Eliminar" />
    </children>
 </AnchorPane>

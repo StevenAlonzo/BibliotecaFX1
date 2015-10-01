@@ -17,8 +17,8 @@
             <TableColumn fx:id="tbcPaginas" prefWidth="75.0" text="Paginas" />
         </columns>
       </TableView>
-      <Button blendMode="EXCLUSION" layoutX="484.0" layoutY="36.0" mnemonicParsing="false" text="Agregar" />
-      <Button blendMode="EXCLUSION" layoutX="484.0" layoutY="93.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="100.0" text="Editar" />
-      <Button blendMode="EXCLUSION" layoutX="484.0" layoutY="149.0" mnemonicParsing="false" text="Eliminar" />
+      <Button blendMode="EXCLUSION" layoutX="484.0" layoutY="36.0" mnemonicParsing="false" onAction="#AgregarLibro" text="Agregar" />
+      <Button blendMode="EXCLUSION" layoutX="484.0" layoutY="93.0" mnemonicParsing="false" onAction="#EditarLibro" prefHeight="33.0" prefWidth="100.0" text="Editar" />
+      <Button blendMode="EXCLUSION" layoutX="484.0" layoutY="149.0" mnemonicParsing="false" onAction="#EliminarLibro" text="Eliminar" />
    </children>
 </AnchorPane>

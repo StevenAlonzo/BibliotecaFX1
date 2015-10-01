@@ -11,7 +11,9 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="BibliotecaFX.jar" size="23081" download="eager" />
+    <jar href="BibliotecaFX.jar" size="41323" download="eager" />
+    <jar href="lib/sqljdbc4.jar" size="585020" download="eager" />
+    <jar href="lib/xstream-1.1.3.jar" size="261710" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="BibliotecaFX" >
     <param name="requiredFXVersion" value="8.0+"/>

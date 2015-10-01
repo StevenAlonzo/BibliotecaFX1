@@ -70,7 +70,7 @@ public class Autor {
         return autores;
     }
     
-     public static boolean insertarAutor(Autor nuevoAutor){
+     public static boolean agregarAutor(Autor nuevoAutor){
         
         String insertSQL =  "INSERT INTO Autor (Nombre) "
                 + "VALUES (?)";

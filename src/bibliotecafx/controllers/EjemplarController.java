@@ -6,13 +6,20 @@
 package bibliotecafx.controllers;
 
 import bibliotecafx.BibliotecaFX;
+import bibliotecafx.BibliotecaFX.CRUDOperation;
+import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Ejemplar;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +46,7 @@ public class EjemplarController  implements Initializable{
     private TableColumn<Ejemplar, String> tbcUsuario;
      
     private BibliotecaFX bibliotecaFX;
+    
 
     public void setBibliotecaFX(BibliotecaFX bibliotecaFX) {
         this.bibliotecaFX = bibliotecaFX;
@@ -64,6 +72,52 @@ public class EjemplarController  implements Initializable{
         });
        
     }
+    @FXML
+    private void eliminarEjemplar() {
+        int selectedIndex = tbvEjemplares.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Ejemplar ejemplarAEliminar = tbvEjemplares.getSelectionModel().getSelectedItem();
+            Alert pregunta = Dialogs.getDialog(Alert.AlertType.CONFIRMATION, "Biblioteca", null, "Deseas eliminar este autor");
+            Optional<ButtonType> result = pregunta.showAndWait();
+            if (result.get() == ButtonType.OK){
+                if(Ejemplar.eliminarEjemplar(ejemplarAEliminar)){
+                    tbvEjemplares.getItems().remove(selectedIndex);
+                }
+            }
+        } else {
+            Alert error = Dialogs.getDialog(Alert.AlertType.ERROR, "Biblioteca", null, "No ha seleccionado ningun alumno");
+            error.showAndWait();
+        }
+    }
+     @FXML
+    private void agregarEjemplar(){
+        Ejemplar EjemplarTemporal = new Ejemplar();
+        boolean okPresionado = bibliotecaFX.mostrarEditarEjemplar(EjemplarTemporal, BibliotecaFX.CRUDOperation.Create);
+        if (okPresionado){
+            bibliotecaFX.getEjemplaresList().add(EjemplarTemporal);
+        }
+    }
     
-    
+     @FXML
+    private void editarEjemplar() {
+        Ejemplar ejemplarSeleccionado = tbvEjemplares.getSelectionModel().getSelectedItem();
+        if (ejemplarSeleccionado != null) {
+            boolean okClicked = bibliotecaFX.mostrarEditarEjemplar(ejemplarSeleccionado, CRUDOperation.Update);
+            if (okClicked) {
+                refrescarDatosEjemplar();
+                
+            }
+
+        } else {
+            Alert error = Dialogs.getDialog(Alert.AlertType.ERROR, "CET Kinal", null, "No ha seleccionado ningun alumno");
+            error.showAndWait();
+        }
+    }
+    private void refrescarDatosEjemplar(){
+        int selectedIndex = tbvEjemplares.getSelectionModel().getSelectedIndex();
+        tbvEjemplares.setItems(null);
+        tbvEjemplares.layout();
+        tbvEjemplares.setItems(bibliotecaFX.getEjemplaresList());
+        tbvEjemplares.getSelectionModel().select(selectedIndex);
+    }
 }
