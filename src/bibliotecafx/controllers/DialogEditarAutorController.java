@@ -66,7 +66,7 @@ public class DialogEditarAutorController {
             autor.setNombre(txtNombre.getText());
            
             if (operacion.equals(CRUDOperation.Create)){
-                presionadoOk = Autor.insertarAutor(autor);
+                presionadoOk = Autor.agregarAutor(autor);
             }
             if (operacion.equals(CRUDOperation.Update)){
                 presionadoOk = Autor.editarAutor(autor);
