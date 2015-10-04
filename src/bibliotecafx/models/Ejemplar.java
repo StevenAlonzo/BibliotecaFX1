@@ -5,11 +5,15 @@
  */
 package bibliotecafx.models;
 
-import bibliotecafx.helps.DBHelper;
+import bibliotecafx.helpers.DBHelper;
+import bibliotecafx.helpers.Dialogs;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -109,5 +113,66 @@ public class Ejemplar {
     
     }
     
+     public static boolean insertarEjemplar(Ejemplar nuevoEjemplar){
+        
+        String insertSQL =  "INSERT INTO Ejemplar(Localizacion,Titulo) "
+                + "VALUES (?, ?)";
+        try{
+            PreparedStatement insertStatement = DBHelper.getConnection().prepareStatement(insertSQL);
+            
+           
+            insertStatement.setString(3, nuevoEjemplar.getTitulo());
+            insertStatement.setString(2, nuevoEjemplar.getTitulo());
+            
+            
+            insertStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al insertar un Ejemplar", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
     
+    public static boolean editarEjemplar(Ejemplar nuevoEjemplar){
+        String updateSQL = "UPDATE Ejemplar"
+                + " SET Localizacion = ?,Titulo = ? "
+                + " WHERE Localizacion = ?"; 
+        
+        try{
+            PreparedStatement updateStatement = DBHelper.getConnection().prepareStatement(updateSQL);
+            
+            updateStatement.setString(3, nuevoEjemplar.getTitulo());
+            updateStatement.setString(2, nuevoEjemplar.getLocalizacion());
+            
+           
+            
+            updateStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al actualizar un Ejemplar", ex);
+            error.showAndWait();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static boolean eliminarEjemplar(Ejemplar Ejemplar){
+        String deleteSQL = "DELETE FROM Ejemplar "
+                + "WHERE Localizacion = ?";
+        try{
+            PreparedStatement deleteStatement = DBHelper.getConnection().prepareStatement(deleteSQL);
+            deleteStatement.setString(2, Ejemplar.getLocalizacion());
+            
+            deleteStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al eliminar un Ejemplar", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
 }

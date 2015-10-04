@@ -18,8 +18,8 @@
             <InnerShadow />
          </effect>
       </TableView>
-      <Button layoutX="306.0" layoutY="48.0" mnemonicParsing="false" onAction="#AgregarAutor" prefHeight="33.0" prefWidth="113.0" text="Agregar" textFill="#6f7ab2" />
-      <Button layoutX="306.0" layoutY="110.0" mnemonicParsing="false" onAction="#EliminarAutor" prefHeight="33.0" prefWidth="113.0" text="Eliminar" />
-      <Button layoutX="306.0" layoutY="167.0" mnemonicParsing="false" onAction="#EditarAutor" prefHeight="33.0" prefWidth="113.0" text="Editar" />
+      <Button layoutX="306.0" layoutY="48.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="113.0" text="Agregar" textFill="#6f7ab2" />
+      <Button layoutX="306.0" layoutY="110.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="113.0" text="Eliminar" />
+      <Button layoutX="306.0" layoutY="167.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="113.0" text="Editar" />
    </children>
 </AnchorPane>

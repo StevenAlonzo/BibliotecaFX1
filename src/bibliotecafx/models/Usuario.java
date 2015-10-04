@@ -5,11 +5,15 @@
  */
 package bibliotecafx.models;
 
-import bibliotecafx.helps.DBHelper;
+import bibliotecafx.helpers.DBHelper;
+import bibliotecafx.helpers.Dialogs;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -86,6 +90,68 @@ public class Usuario {
         
         return usuarios;
     }
+     public static boolean insertarUsuario(Usuario nuevoUsuario){
+        
+        String insertSQL =  "INSERT INTO Usuario (nombre,telefono,direccion) "
+                + "VALUES (?, ?, ?)";
+        try{
+            PreparedStatement insertStatement = DBHelper.getConnection().prepareStatement(insertSQL);
+            
+           
+            insertStatement.setString(2, nuevoUsuario.getNombre());
+            insertStatement.setInt(5, nuevoUsuario.getTelefono());
+            insertStatement.setString(4, nuevoUsuario.getDireccion());
+            
+            
+            insertStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al insertar un usuario", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
     
+    public static boolean editarAlumno(Usuario nuevoUsuario){
+        String updateSQL = "UPDATE Usuario"
+                + " SET nombre = ?,telefono = ?, direccion = ? "
+                + " WHERE Nombre = ?";
+        
+        try{
+            PreparedStatement updateStatement = DBHelper.getConnection().prepareStatement(updateSQL);
+            
+            updateStatement.setString(1, nuevoUsuario.getNombre());
+            updateStatement.setInt(4, nuevoUsuario.getTelefono());
+            updateStatement.setString(3, nuevoUsuario.getDireccion());
+           
+            
+            updateStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al actualizar un usuario", ex);
+            error.showAndWait();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static boolean eliminarAlumno(Usuario Usuario){
+        String deleteSQL = "DELETE FROM usuario "
+                + "WHERE Nombre = ?";
+        try{
+            PreparedStatement deleteStatement = DBHelper.getConnection().prepareStatement(deleteSQL);
+            deleteStatement.setString(1, Usuario.getNombre());
+            
+            deleteStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al eliminar un Usuario", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bibliotecafx.helps;
+package bibliotecafx.helpers;
 
 import bibliotecafx.BibliotecaFX;
 import java.sql.Connection;

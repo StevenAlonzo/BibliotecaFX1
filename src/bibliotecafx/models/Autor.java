@@ -5,11 +5,15 @@
  */
 package bibliotecafx.models;
 
-import bibliotecafx.helps.DBHelper;
+import bibliotecafx.helpers.DBHelper;
+import bibliotecafx.helpers.Dialogs;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -66,5 +70,64 @@ public class Autor {
         return autores;
     }
     
+     public static boolean insertarAutor(Autor nuevoAutor){
+        
+        String insertSQL =  "INSERT INTO Autor (Nombre) "
+                + "VALUES (?)";
+        try{
+            PreparedStatement insertStatement = DBHelper.getConnection().prepareStatement(insertSQL);
+            
+           
+            insertStatement.setString(2, nuevoAutor.getNombre());
+            
+            
+            insertStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al insertar un Autor", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
     
+    public static boolean editarAutor(Autor nuevoAutor){
+        String updateSQL = "UPDATE Autor"
+                + " SET Nombre = ? "
+                + " WHERE Nombre = ?"; 
+        
+        try{
+            PreparedStatement updateStatement = DBHelper.getConnection().prepareStatement(updateSQL);
+            
+            updateStatement.setString(2, nuevoAutor.getNombre());
+            
+           
+            
+            updateStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al actualizar un Autor", ex);
+            error.showAndWait();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static boolean eliminarAutor(Autor Autor){
+        String deleteSQL = "DELETE FROM Autor "
+                + "WHERE Nombre = ?";
+        try{
+            PreparedStatement deleteStatement = DBHelper.getConnection().prepareStatement(deleteSQL);
+            deleteStatement.setString(2, Autor.getNombre());
+            
+            deleteStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "Biblioteca", null, "Error al eliminar un Autor", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
 }
