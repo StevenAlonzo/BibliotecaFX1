@@ -34,9 +34,9 @@ CREATE TABLE Prestamo(
 	Codigo_Prestamo INT IDENTITY PRIMARY KEY,
 	Codigo_Usuario INT FOREIGN KEY REFERENCES Usuario(Codigo_Usuario),
 	Codigo_Ejemplar INT FOREIGN KEY REFERENCES Ejemplar(Codigo_Ejemplar),
-	Fecha_Prestamo Varchar NOT NULL UNIQUE,
-	Fecha_Limite Varchar NOT NULL UNIQUE,
-	Fecha_Devolucion Varchar NULL,
+	Fecha_Prestamo Varchar (30)NOT NULL UNIQUE,
+	Fecha_Limite Varchar (30)NOT NULL UNIQUE,
+	Fecha_Devolucion Varchar(30) NULL,
 )
 GO
 
@@ -101,4 +101,4 @@ INSERT INTO Prestamo(Codigo_Usuario,Codigo_Ejemplar,Fecha_Prestamo,Fecha_Limite,
 INSERT INTO Prestamo(Codigo_Usuario,Codigo_Ejemplar,Fecha_Prestamo,Fecha_Limite,Fecha_Devolucion ) VALUES (10,10,'4/07/15','7/07/15','12/07/15')
 GO
 
-select * from Libros 
+select * from Prestamo
